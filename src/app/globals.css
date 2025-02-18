@@ -14,8 +14,102 @@
   }
 }
 
+/* styles/globals.css */
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: #000;
+}
+
+.glow-effect {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+/* Animasi Bulatan */
+@keyframes moveCircles {
+  0% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(20vw, 10vh);
+  }
+  50% {
+    transform: translate(-15vw, 20vh);
+  }
+  75% {
+    transform: translate(10vw, -15vh);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+.circle {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(192, 132, 252, 0.2); /* Warna bulatan */
+  animation: moveCircles 15s linear infinite;
+}
+
+.circle-1 {
+  width: 200px;
+  height: 200px;
+  top: 10%;
+  left: 5%;
+  animation-duration: 20s;
+}
+
+.circle-2 {
+  width: 150px;
+  height: 150px;
+  top: 50%;
+  left: 70%;
+  animation-duration: 25s;
+}
+
+.circle-3 {
+  width: 250px;
+  height: 250px;
+  top: 70%;
+  left: 20%;
+  animation-duration: 30s;
+}
+
+.circle-4 {
+  width: 100px;
+  height: 100px;
+  top: 30%;
+  left: 50%;
+  animation-duration: 15s;
+}
+
+/* styles/globals.css atau file CSS khusus komponen */
+/* Scrollbar untuk browser berbasis WebKit (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+  width: 8px; /* Lebar scrollbar */
+}
+
+::-webkit-scrollbar-track {
+  background: #2d3748; /* Warna track (background scrollbar) */
+  border-radius: 4px; /* Membuat track scrollbar melengkung */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #4a5568; /* Warna thumb (bagian yang bisa digerakkan) */
+  border-radius: 4px; /* Membuat thumb scrollbar melengkung */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #718096; /* Warna thumb saat dihover */
+}
+
+/* Scrollbar untuk Firefox */
+* {
+  scrollbar-width: thin; /* Lebar scrollbar */
+  scrollbar-color: #4a5568 #2d3748; /* Warna thumb dan track */
 }

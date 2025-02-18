@@ -28,7 +28,7 @@ const CommentList = () => {
   }, []);
 
   return (
-    <div className="space-y-4 overflow-y-auto max-h-64 pr-2">
+    <div className="space-y-4 overflow-y-auto max-h-40 pr-2">
       <AnimatePresence>
         {comments.map((comment, index) => (
           <motion.div

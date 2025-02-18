@@ -7,6 +7,7 @@ import SocialIcons from "../components/SocialIcons";
 import ContactIcons from "../components/ContactIcons";
 import CommentForm from "../components/CommentForm";
 import CommentList from "../components/CommentList";
+import SpotifyPlayer from "../components/SpotifyPlayer";
 import { db } from "../firebase"; // Impor Firebase
 import { collection, addDoc, onSnapshot } from "firebase/firestore"; // Pastikan impor ini ada
 
@@ -67,7 +68,7 @@ export default function Home() {
       <AnimatePresence>
         {isMounted && (
           <motion.div
-            className="max-w-md w-full p-6 space-y-6 bg-gray-900/80 backdrop-blur-md rounded-lg shadow-lg relative z-10"
+            className="max-w-md w-full p-6 space-y-6 bg-gray-900/50 backdrop-blur-md rounded-lg shadow-lg relative z-10"
             variants={containerVariants}
             initial="hidden"
             animate="visible"
@@ -91,6 +92,10 @@ export default function Home() {
             </motion.div>
             <motion.div variants={childVariants}>
               <CommentForm onCommentSubmit={handleCommentSubmit} />
+            </motion.div>
+            {/* Menampilkan Pemutar Spotify */}
+            <motion.div variants={childVariants}>
+              <SpotifyPlayer trackUrl="6hYLwcur3csaL9ztenvl3a" /> {/* Ganti dengan ID lagu dari Spotify */}
             </motion.div>
           </motion.div>
         )}

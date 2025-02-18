@@ -1,32 +1,42 @@
-// app/page.js
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import Profile from '../components/Profile';
-import SocialIcons from '../components/SocialIcons';
-import ContactIcons from '../components/ContactIcons';
-import CommentForm from '../components/CommentForm';
-import CommentList from '../components/CommentList';
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import Profile from "../components/Profile";
+import SocialIcons from "../components/SocialIcons";
+import ContactIcons from "../components/ContactIcons";
+import CommentForm from "../components/CommentForm";
+import CommentList from "../components/CommentList";
+import { db } from "../firebase"; // Impor Firebase
+import { collection, addDoc, onSnapshot } from "firebase/firestore"; // Pastikan impor ini ada
 
 export default function Home() {
   const [comments, setComments] = useState([]);
   const [isMounted, setIsMounted] = useState(false);
 
-  // Ambil komentar dari localStorage saat komponen pertama kali dimuat
+  // Ambil komentar dari Firestore
   useEffect(() => {
-    const savedComments = JSON.parse(localStorage.getItem('comments')) || [];
-    setComments(savedComments);
-    setIsMounted(true);
+    const commentsCollection = collection(db, "comments");
+    const unsubscribe = onSnapshot(commentsCollection, (snapshot) => {
+      const commentsData = snapshot.docs.map((doc) => ({
+        id: doc.id, // Menambahkan ID untuk setiap komentar
+        ...doc.data(),
+      }));
+      setComments(commentsData);
+      setIsMounted(true); // Set komponen sebagai mounted setelah data didapat
+    });
+
+    // Cleanup: Hentikan listener saat komponen dibersihkan
+    return () => unsubscribe();
   }, []);
 
-  // Simpan komentar ke localStorage setiap kali komentar berubah
-  useEffect(() => {
-    localStorage.setItem('comments', JSON.stringify(comments));
-  }, [comments]);
-
-  const handleCommentSubmit = (newComment) => {
-    setComments([...comments, newComment]);
+  // Simpan komentar ke Firestore
+  const handleCommentSubmit = async (newComment) => {
+    try {
+      await addDoc(collection(db, "comments"), newComment); // Menambahkan komentar ke Firestore
+    } catch (error) {
+      console.error("Error adding document: ", error);
+    }
   };
 
   // Variants untuk animasi stagger

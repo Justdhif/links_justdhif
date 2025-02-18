@@ -12,6 +12,7 @@
     "@fortawesome/free-brands-svg-icons": "^6.7.2",
     "@fortawesome/react-fontawesome": "^0.2.2",
     "axios": "^1.7.9",
+    "firebase": "^11.3.1",
     "framer-motion": "^12.4.3",
     "next": "15.1.7",
     "react": "^19.0.0",

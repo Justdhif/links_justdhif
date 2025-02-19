@@ -1,66 +1,56 @@
-// components/CommentForm.js
-"use client";
-import { useState, useEffect } from "react";
-import { db } from "../firebase";
-import { collection, addDoc, onSnapshot } from "firebase/firestore"; // Impor yang benar
+'use client';
+import { useState } from 'react';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { db } from '../firebase';
 
 const CommentForm = () => {
-  const [name, setName] = useState("");
-  const [comment, setComment] = useState("");
-  const [comments, setComments] = useState([]);
-
-  useEffect(() => {
-    const unsubscribe = onSnapshot(collection(db, "comments"), (snapshot) => {
-      const newComments = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      setComments(newComments);
-    });
-
-    return () => unsubscribe();
-  }, []);
+  const [name, setName] = useState('');
+  const [comment, setComment] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!name.trim() || !comment.trim()) return; // Jangan kirim jika kosong
+    if (!name.trim() || !comment.trim()) return; // Cegah input kosong
+
+    setLoading(true);
     try {
-      await addDoc(collection(db, "comments"), {
+      await addDoc(collection(db, 'comments'), {
         name,
         comment,
-        timestamp: new Date(),
+        timestamp: serverTimestamp(), // Tambahkan timestamp agar komentar bisa diurutkan
       });
-      setName("");
-      setComment("");
-    } catch (err) {
-      console.error("Error adding comment: ", err);
+
+      setName('');
+      setComment('');
+    } catch (error) {
+      console.error('Error adding comment:', error);
     }
+    setLoading(false);
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <input
-          type="text"
-          placeholder="Nama Anda"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          className="w-full p-3 rounded-lg bg-gray-800 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500"
-        />
-        <textarea
-          placeholder="Komentar Anda"
-          value={comment}
-          onChange={(e) => setComment(e.target.value)}
-          className="w-full p-3 rounded-lg bg-gray-800 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 resize-none"
-        />
-        <button
-          type="submit"
-          className="w-full p-2 bg-purple-500 text-white rounded hover:bg-purple-600 transition"
-        >
-          Kirim Komentar
-        </button>
-      </form>
-    </div>
+    <form onSubmit={handleSubmit} className="space-y-4">
+      <input
+        type="text"
+        placeholder="Nama"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        className="w-full p-2 rounded bg-gray-700 text-white border border-gray-600"
+      />
+      <textarea
+        placeholder="Tulis komentar..."
+        value={comment}
+        onChange={(e) => setComment(e.target.value)}
+        className="w-full p-2 rounded bg-gray-700 text-white border border-gray-600 resize-none"
+      />
+      <button
+        type="submit"
+        className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded w-full"
+        disabled={loading}
+      >
+        {loading ? 'Mengirim...' : 'Kirim'}
+      </button>
+    </form>
   );
 };
 

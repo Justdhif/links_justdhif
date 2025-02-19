@@ -1,60 +1,62 @@
-"use client";
+'use client';
 
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import Profile from "../components/Profile";
-import SocialIcons from "../components/SocialIcons";
-import ContactIcons from "../components/ContactIcons";
-import CommentForm from "../components/CommentForm";
-import CommentList from "../components/CommentList";
-import SpotifyPlayer from "../components/SpotifyPlayer";
-import { db } from "../firebase"; // Impor Firebase
-import { collection, addDoc, onSnapshot } from "firebase/firestore"; // Pastikan impor ini ada
+import { useEffect, useState } from 'react';
+import { motion, useAnimation } from 'framer-motion';
+import { useInView } from 'react-intersection-observer';
+import Profile from '../components/Profile';
+import SocialIcons from '../components/SocialIcons';
+import ContactIcons from '../components/ContactIcons';
+import ProjectCarousel from '../components/ProjectCarousel';
+import CommentForm from '../components/CommentForm';
+import CommentList from '../components/CommentList';
+import { db } from '../firebase';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 
 export default function Home() {
-  const [comments, setComments] = useState([]);
   const [isMounted, setIsMounted] = useState(false);
-
-  // Ambil komentar dari Firestore
-  useEffect(() => {
-    const commentsCollection = collection(db, "comments");
-    const unsubscribe = onSnapshot(commentsCollection, (snapshot) => {
-      const commentsData = snapshot.docs.map((doc) => ({
-        id: doc.id, // Menambahkan ID untuk setiap komentar
-        ...doc.data(),
-      }));
-      setComments(commentsData);
-      setIsMounted(true); // Set komponen sebagai mounted setelah data didapat
-    });
-
-    // Cleanup: Hentikan listener saat komponen dibersihkan
-    return () => unsubscribe();
-  }, []);
 
   // Simpan komentar ke Firestore
   const handleCommentSubmit = async (newComment) => {
     try {
-      await addDoc(collection(db, "comments"), newComment); // Menambahkan komentar ke Firestore
+      await addDoc(collection(db, 'comments'), {
+        ...newComment,
+        timestamp: serverTimestamp(),
+      });
     } catch (error) {
-      console.error("Error adding document: ", error);
+      console.error('Error adding comment: ', error);
     }
   };
 
-  // Variants untuk animasi stagger
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2, // Jarak antar animasi anak
-      },
-    },
+  // Variants untuk animasi masuk dan keluar layar
+  const fadeInOutVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
   };
 
-  const childVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0 },
+  // Hook untuk mendeteksi saat elemen terlihat di viewport
+  const useScrollAnimation = () => {
+    const controls = useAnimation();
+    const { ref, inView } = useInView({ threshold: 0.3 });
+
+    useEffect(() => {
+      if (inView) {
+        controls.start('visible');
+      } else {
+        controls.start('hidden');
+      }
+    }, [controls, inView]);
+
+    return { ref, controls };
   };
+
+  // Animasi untuk setiap elemen
+  const profileAnim = useScrollAnimation();
+  const socialAnim = useScrollAnimation();
+  const contactAnim = useScrollAnimation();
+  const projectAnim = useScrollAnimation();
+  const titleAnim = useScrollAnimation();
+  const listAnim = useScrollAnimation();
+  const formAnim = useScrollAnimation();
 
   return (
     <div className="min-h-screen bg-gray-900 flex flex-col items-center justify-center p-10 relative overflow-hidden">
@@ -64,42 +66,73 @@ export default function Home() {
       <div className="circle circle-3"></div>
       <div className="circle circle-4"></div>
 
-      {/* Konten Utama dengan Animasi */}
-      <AnimatePresence>
-        {isMounted && (
-          <motion.div
-            className="max-w-md w-full p-6 space-y-6 bg-gray-900/50 backdrop-blur-md rounded-lg shadow-lg relative z-10"
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
-          >
-            <motion.div variants={childVariants}>
-              <Profile />
-            </motion.div>
-            <motion.div variants={childVariants}>
-              <SocialIcons />
-            </motion.div>
-            <motion.div variants={childVariants}>
-              <ContactIcons />
-            </motion.div>
-            <motion.div variants={childVariants}>
-              <h1 className="font-bold text-lg border-b-2 border-purple-500 pb-1 px-1 inline-block">
-                Comment
-              </h1>
-            </motion.div>
-            <motion.div variants={childVariants}>
-              <CommentList comments={comments} />
-            </motion.div>
-            <motion.div variants={childVariants}>
-              <CommentForm onCommentSubmit={handleCommentSubmit} />
-            </motion.div>
-            {/* Menampilkan Pemutar Spotify */}
-            <motion.div variants={childVariants}>
-              <SpotifyPlayer trackUrl="6hYLwcur3csaL9ztenvl3a" /> {/* Ganti dengan ID lagu dari Spotify */}
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* Konten Utama dengan Animasi Scroll */}
+      <motion.div className="max-w-md w-full p-6 space-y-6 bg-gray-900/50 backdrop-blur-md rounded-lg shadow-lg relative z-10">
+        <motion.div
+          ref={profileAnim.ref}
+          variants={fadeInOutVariants}
+          initial="hidden"
+          animate={profileAnim.controls}
+        >
+          <Profile />
+        </motion.div>
+
+        <motion.div
+          ref={socialAnim.ref}
+          variants={fadeInOutVariants}
+          initial="hidden"
+          animate={socialAnim.controls}
+        >
+          <SocialIcons />
+        </motion.div>
+
+        <motion.div
+          ref={contactAnim.ref}
+          variants={fadeInOutVariants}
+          initial="hidden"
+          animate={contactAnim.controls}
+        >
+          <ContactIcons />
+        </motion.div>
+
+        <motion.div
+          ref={projectAnim.ref}
+          variants={fadeInOutVariants}
+          initial="hidden"
+          animate={projectAnim.controls}
+        >
+          <ProjectCarousel />
+        </motion.div>
+
+        <motion.div
+          ref={titleAnim.ref}
+          variants={fadeInOutVariants}
+          initial="hidden"
+          animate={titleAnim.controls}
+        >
+          <h1 className="font-bold text-lg border-b-2 border-purple-500 pb-1 px-1 inline-block">
+            Comment
+          </h1>
+        </motion.div>
+
+        <motion.div
+          ref={listAnim.ref}
+          variants={fadeInOutVariants}
+          initial="hidden"
+          animate={listAnim.controls}
+        >
+          <CommentList />
+        </motion.div>
+
+        <motion.div
+          ref={formAnim.ref}
+          variants={fadeInOutVariants}
+          initial="hidden"
+          animate={formAnim.controls}
+        >
+          <CommentForm onCommentSubmit={handleCommentSubmit} />
+        </motion.div>
+      </motion.div>
     </div>
   );
 }

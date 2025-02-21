@@ -1,35 +1,72 @@
 'use client';
 
-import { AnimatePresence } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import { db } from '../firebase';
-import { collection, onSnapshot } from 'firebase/firestore';
-import CommentItem from './CommentItem'; // Import komponen baru
+import { collection, onSnapshot, query, orderBy } from 'firebase/firestore';
+import CommentItem from './CommentItem'; // Import komponen CommentItem
 
 const CommentList = () => {
   const [comments, setComments] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  // Ambil komentar dari Firestore (real-time)
   useEffect(() => {
-    const commentsCollection = collection(db, 'comments');
+    const commentsCollection = query(
+      collection(db, 'comments'),
+      orderBy('timestamp', 'desc') // Urutkan berdasarkan timestamp terbaru
+    );
+
     const unsubscribe = onSnapshot(commentsCollection, (snapshot) => {
       const commentsData = snapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
       }));
       setComments(commentsData);
+      setLoading(false);
     });
 
     return () => unsubscribe();
   }, []);
 
   return (
-    <div className="space-y-4 overflow-y-auto max-h-64 pr-2">
-      <AnimatePresence>
-        {comments.map((comment, index) => (
-          <CommentItem key={comment.id} comment={comment} index={index} />
-        ))}
-      </AnimatePresence>
+    <div className="relative max-h-64 overflow-y-auto pr-2 bg-gray-900/50 rounded-lg shadow-lg backdrop-blur-md p-4 border border-gray-700/50">
+      {loading ? (
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="text-center text-gray-400"
+        >
+          Memuat komentar...
+        </motion.p>
+      ) : comments.length === 0 ? (
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="text-center text-gray-400"
+        >
+          Belum ada komentar.
+        </motion.p>
+      ) : (
+        <AnimatePresence>
+          {comments.map((comment, index) => (
+            <CommentItem key={comment.id} comment={comment} index={index} />
+          ))}
+        </AnimatePresence>
+      )}
+
+      {/* Custom Scrollbar */}
+      <style jsx>{`
+        div::-webkit-scrollbar {
+          width: 6px;
+        }
+        div::-webkit-scrollbar-thumb {
+          background: rgba(128, 0, 128, 0.6);
+          border-radius: 10px;
+        }
+        div::-webkit-scrollbar-track {
+          background: transparent;
+        }
+      `}</style>
     </div>
   );
 };

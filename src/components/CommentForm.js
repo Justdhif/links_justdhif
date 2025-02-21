@@ -1,5 +1,7 @@
 'use client';
+
 import { useState } from 'react';
+import { motion } from 'framer-motion';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '../firebase';
 
@@ -17,7 +19,7 @@ const CommentForm = () => {
       await addDoc(collection(db, 'comments'), {
         name,
         comment,
-        timestamp: serverTimestamp(), // Tambahkan timestamp agar komentar bisa diurutkan
+        timestamp: serverTimestamp(),
       });
 
       setName('');
@@ -29,28 +31,46 @@ const CommentForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
-      <input
+    <motion.form
+      onSubmit={handleSubmit}
+      className="space-y-4 bg-gray-900/60 backdrop-blur-md p-6 rounded-lg shadow-lg border border-gray-700/50"
+      initial={{ opacity: 0, y: 30 }}
+      animate={{
+        opacity: 1,
+        y: 0,
+        transition: { duration: 0.5, ease: 'easeOut' },
+      }}
+    >
+      {/* Input Nama */}
+      <motion.input
         type="text"
         placeholder="Nama"
         value={name}
         onChange={(e) => setName(e.target.value)}
-        className="w-full p-2 rounded bg-gray-700 text-white border border-gray-600"
+        className="w-full p-3 rounded bg-gray-800 text-white border border-gray-600 outline-none focus:ring-2 focus:ring-purple-500 transition-all"
+        whileFocus={{ scale: 1.02 }}
       />
-      <textarea
+
+      {/* Textarea Komentar */}
+      <motion.textarea
         placeholder="Tulis komentar..."
         value={comment}
         onChange={(e) => setComment(e.target.value)}
-        className="w-full p-2 rounded bg-gray-700 text-white border border-gray-600 resize-none"
+        className="w-full p-3 rounded bg-gray-800 text-white border border-gray-600 outline-none resize-none focus:ring-2 focus:ring-purple-500 transition-all"
+        whileFocus={{ scale: 1.02 }}
       />
-      <button
+
+      {/* Tombol Submit */}
+      <motion.button
         type="submit"
-        className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded w-full"
+        className="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-6 rounded shadow-md transition-all"
         disabled={loading}
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
       >
         {loading ? 'Mengirim...' : 'Kirim'}
-      </button>
-    </form>
+      </motion.button>
+    </motion.form>
   );
 };
 

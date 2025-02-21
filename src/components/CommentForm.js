@@ -33,7 +33,7 @@ const CommentForm = () => {
   return (
     <motion.form
       onSubmit={handleSubmit}
-      className="space-y-4 bg-gray-900/60 backdrop-blur-md p-6 rounded-lg shadow-lg border border-gray-700/50"
+      className="space-y-4"
       initial={{ opacity: 0, y: 30 }}
       animate={{
         opacity: 1,

@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronLeft, ChevronRight } from 'lucide-react'; // Import icon dari lucide-react
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 const projects = [
   {

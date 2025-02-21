@@ -29,7 +29,7 @@ const CommentList = () => {
   }, []);
 
   return (
-    <div className="relative max-h-64 overflow-y-auto pr-2 bg-gray-900/50 rounded-lg shadow-lg backdrop-blur-md p-4 border border-gray-700/50">
+    <div className="relative max-h-64 overflow-y-auto pr-2">
       {loading ? (
         <motion.p
           initial={{ opacity: 0 }}

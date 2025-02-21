@@ -52,7 +52,7 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white flex flex-col items-center justify-center p-10 relative overflow-hidden">
+    <div className="min-h-screen bg-black text-white flex flex-col items-center justify-center md:p-10 sm:p-0 relative overflow-hidden">
       {/* Efek Background Gradient Futuristic */}
       <div className="absolute inset-0 bg-gradient-to-r from-blue-900 via-purple-900 to-black opacity-50"></div>
 
@@ -73,7 +73,7 @@ export default function Home() {
 
       {/* Konten Utama */}
       <motion.div
-        className="max-w-lg w-full p-8 space-y-6 bg-gray-800/80 backdrop-blur-md rounded-xl shadow-2xl relative border border-purple-500/30"
+        className="max-w-lg w-full p-10 space-y-6 bg-gray-800/50 backdrop-blur-md rounded-xl shadow-2xl relative border border-purple-500/30"
         initial="hidden"
         animate="visible"
         variants={fadeInVariants}

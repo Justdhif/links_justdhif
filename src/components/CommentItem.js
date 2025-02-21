@@ -17,7 +17,7 @@ const CommentItem = ({ comment = {}, index = 0 }) => {
   // Pastikan nama selalu ada
   const name = comment.name || 'Anonymous';
 
-  // Gunakan UI Avatars jika tidak ada gambar profil
+  // UI Avatars
   const profileImage = `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=random`;
 
   return (
@@ -27,7 +27,7 @@ const CommentItem = ({ comment = {}, index = 0 }) => {
       animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
       exit={{ opacity: 0, y: -20, scale: 0.95 }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
-      className="bg-gray-900/60 backdrop-blur-lg p-4 rounded-lg flex items-start gap-3 border border-gray-700/50 shadow-md hover:shadow-purple-500/30 transition-all"
+      className="bg-gray-900/60 backdrop-blur-lg p-4 rounded-lg flex items-start mb-3 gap-3 border border-gray-700/50 shadow-md hover:shadow-purple-500/30 transition-all"
     >
       {/* Gambar Profil */}
       <motion.div

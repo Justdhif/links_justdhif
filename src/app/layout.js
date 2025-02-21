@@ -9,6 +9,11 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      {/* Meta theme */}
+      <head>
+        <meta name="theme-color" content="#000" />
+      </head>
+
       <body className="bg-black text-white">{children}</body>
     </html>
   );

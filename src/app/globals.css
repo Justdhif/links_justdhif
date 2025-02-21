@@ -25,26 +25,20 @@ body {
 
 /* styles/globals.css atau file CSS khusus komponen */
 /* Scrollbar untuk browser berbasis WebKit (Chrome, Safari, Edge) */
-::-webkit-scrollbar {
+.custom_scrollbar::-webkit-scrollbar {
   width: 8px; /* Lebar scrollbar */
 }
 
-::-webkit-scrollbar-track {
+.custom_scrollbar::-webkit-scrollbar-track {
   background: #2d3748; /* Warna track (background scrollbar) */
   border-radius: 4px; /* Membuat track scrollbar melengkung */
 }
 
-::-webkit-scrollbar-thumb {
+.custom_scrollbar::-webkit-scrollbar-thumb {
   background: #4a5568; /* Warna thumb (bagian yang bisa digerakkan) */
   border-radius: 4px; /* Membuat thumb scrollbar melengkung */
 }
 
-::-webkit-scrollbar-thumb:hover {
+.custom_scrollbar::-webkit-scrollbar-thumb:hover {
   background: #718096; /* Warna thumb saat dihover */
-}
-
-/* Scrollbar untuk Firefox */
-* {
-  scrollbar-width: thin; /* Lebar scrollbar */
-  scrollbar-color: #4a5568 #2d3748; /* Warna thumb dan track */
 }

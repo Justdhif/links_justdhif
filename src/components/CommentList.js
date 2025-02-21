@@ -29,7 +29,7 @@ const CommentList = () => {
   }, []);
 
   return (
-    <div className="relative max-h-64 overflow-y-auto pr-2">
+    <div className="relative max-h-64 overflow-y-auto pr-2 custom_scrollbar">
       {loading ? (
         <motion.p
           initial={{ opacity: 0 }}

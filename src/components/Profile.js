@@ -31,7 +31,7 @@ const Profile = () => {
         }
       }, 50);
     }
-  }, [textIndex, textIndex2]); // Tambahkan dependency agar efek berjalan dengan benar
+  }, [textIndex, textIndex2]);
 
   return (
     <div className="flex flex-col items-center gap-3">
@@ -44,7 +44,7 @@ const Profile = () => {
           src="/images/profile.jpg"
           alt="Profile"
           fill
-          className="rounded-full object-cover border-2 border-purple-500 shadow-lg group-hover:border-white transition-all duration-300"
+          className="rounded-full object-cover border-2 border-blue-500 shadow-lg group-hover:border-blue-900 transition-all duration-300 dark:border-purple-400 dark:group-hover:border-white"
         />
         <motion.div
           initial={{ opacity: 0 }}
@@ -59,16 +59,16 @@ const Profile = () => {
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.2 }}
-        className="text-2xl font-bold text-purple-500 hover:text-white transition-colors duration-300"
+        className="text-2xl font-bold text-blue-500 dark:text-purple-400 hover:text-blue-600 dark:hover:text-purple-500 transition-colors duration-300"
       >
         Justdhif
       </motion.h1>
 
       {/* Teks dengan efek typing */}
-      <p className="text-sm text-gray-400 text-center hover:text-gray-200 transition-colors duration-300">
+      <p className="text-sm text-gray-500 text-center hover:text-gray-700 transition-colors duration-300 dark:text-gray-300 dark:hover:text-gray-100">
         {text}
       </p>
-      <p className="text-sm text-gray-400 text-center hover:text-gray-200 transition-colors duration-300">
+      <p className="text-sm text-gray-500 text-center hover:text-gray-700 transition-colors duration-300 dark:text-gray-300 dark:hover:text-gray-100">
         {text2}
       </p>
     </div>

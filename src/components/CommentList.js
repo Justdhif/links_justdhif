@@ -29,12 +29,12 @@ const CommentList = () => {
   }, []);
 
   return (
-    <div className="relative max-h-64 overflow-y-auto pr-2 custom_scrollbar">
+    <div className="relative max-h-80 overflow-y-auto pr-2 custom_scrollbar">
       {loading ? (
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className="text-center text-gray-400"
+          className="text-center text-gray-600"
         >
           Memuat komentar...
         </motion.p>
@@ -42,7 +42,7 @@ const CommentList = () => {
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className="text-center text-gray-400"
+          className="text-center text-gray-600"
         >
           Belum ada komentar.
         </motion.p>
@@ -60,7 +60,7 @@ const CommentList = () => {
           width: 6px;
         }
         div::-webkit-scrollbar-thumb {
-          background: rgba(128, 0, 128, 0.6);
+          background: rgba(0, 122, 255, 0.6);
           border-radius: 10px;
         }
         div::-webkit-scrollbar-track {

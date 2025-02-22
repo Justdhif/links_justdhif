@@ -47,7 +47,7 @@ const CommentForm = () => {
         placeholder="Nama"
         value={name}
         onChange={(e) => setName(e.target.value)}
-        className="w-full p-3 rounded bg-gray-800 text-white border border-gray-600 outline-none focus:ring-2 focus:ring-purple-500 transition-all"
+        className="w-full p-3 rounded bg-gray-100 text-gray-900 border border-gray-400 outline-none focus:ring-2 focus:ring-blue-500 transition-all dark:bg-gray-800 dark:border-gray-600 dark:text-gray-100"
         whileFocus={{ scale: 1.02 }}
       />
 
@@ -56,14 +56,14 @@ const CommentForm = () => {
         placeholder="Tulis komentar..."
         value={comment}
         onChange={(e) => setComment(e.target.value)}
-        className="w-full p-3 rounded bg-gray-800 text-white border border-gray-600 outline-none resize-none focus:ring-2 focus:ring-purple-500 transition-all"
+        className="w-full p-3 rounded bg-gray-100 text-gray-900 border border-gray-400 outline-none resize-none focus:ring-2 focus:ring-blue-500 transition-all dark:bg-gray-800 dark:border-gray-600 dark:text-gray-100"
         whileFocus={{ scale: 1.02 }}
       />
 
       {/* Tombol Submit */}
       <motion.button
         type="submit"
-        className="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-6 rounded shadow-md transition-all"
+        className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded shadow-md transition-all"
         disabled={loading}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}

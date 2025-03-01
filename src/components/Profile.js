@@ -1,37 +1,24 @@
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef } from 'react';
+import Typed from 'typed.js';
+import ThemeToggle from './ThemeToggle';
 
 const Profile = () => {
-  const fullText = 'Hai semuanya, saya Nadhif.';
-  const fullText2 = 'Seorang siswa SMK Taruna Bhakti.';
-
-  const [text, setText] = useState('');
-  const [textIndex, setTextIndex] = useState(0);
-
-  const [text2, setText2] = useState('');
-  const [textIndex2, setTextIndex2] = useState(0);
+  const textRef = useRef(null);
 
   useEffect(() => {
-    if (textIndex < fullText.length) {
-      const typeEffect = setTimeout(() => {
-        setText((prev) => prev + fullText[textIndex]);
-        setTextIndex((prev) => prev + 1);
-      }, 50);
-      return () => clearTimeout(typeEffect);
-    } else {
-      // Setelah teks pertama selesai, mulai teks kedua dengan jeda 1 detik
-      setTimeout(() => {
-        if (textIndex2 < fullText2.length) {
-          const typeEffect2 = setTimeout(() => {
-            setText2((prev) => prev + fullText2[textIndex2]);
-            setTextIndex2((prev) => prev + 1);
-          }, 50);
-          return () => clearTimeout(typeEffect2);
-        }
-      }, 50);
-    }
-  }, [textIndex, textIndex2]);
+    const typed = new Typed(textRef.current, {
+      strings: ['Halo! Nama saya Nadhif.', 'Seorang siswa SMK Taruna Bhakti.', 'Seorang Web Developer.'],
+      typeSpeed: 50,
+      backSpeed: 25,
+      loop: true,
+    });
+
+    return () => {
+      typed.destroy();
+    };
+  }, []);
 
   return (
     <div className="flex flex-col items-center gap-3">
@@ -65,12 +52,13 @@ const Profile = () => {
       </motion.h1>
 
       {/* Teks dengan efek typing */}
-      <p className="text-sm text-gray-500 text-center hover:text-gray-700 transition-colors duration-300 dark:text-gray-300 dark:hover:text-gray-100">
-        {text}
+      <p
+        className="text-md text-gray-500 text-center hover:text-gray-700 transition-colors duration-300 dark:text-gray-300 dark:hover:text-gray-100 inline-block"
+      >
+        <span ref={textRef}></span>
       </p>
-      <p className="text-sm text-gray-500 text-center hover:text-gray-700 transition-colors duration-300 dark:text-gray-300 dark:hover:text-gray-100">
-        {text2}
-      </p>
+
+      <ThemeToggle />
     </div>
   );
 };

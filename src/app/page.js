@@ -4,8 +4,7 @@ import { useEffect } from 'react';
 import { motion, useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import Profile from '../components/Profile';
-import ThemeToggle from '../components/ThemeToggle';
-import SocialIcons from '../components/SocialIcons';
+import TechStack from '../components/TechStack';
 import ContactIcons from '../components/ContactIcons';
 import CommentForm from '../components/CommentForm';
 import CommentList from '../components/CommentList';
@@ -54,7 +53,7 @@ export default function Home() {
   return (
     <div
       className="min-h-screen flex flex-col items-center justify-center md:p-10 sm:p-0 relative overflow-hidden 
-      bg-gray-200 text-black dark:bg-black dark:text-white transition-colors duration-300"
+      bg-white text-black dark:bg-black dark:text-white transition-colors duration-300"
     >
       {/* Efek Background Gradient Futuristic */}
       <div className="absolute inset-0 bg-gradient-to-r from-blue-300 via-purple-400 to-gray-200 dark:from-blue-900 dark:via-purple-900 dark:to-black opacity-50"></div>
@@ -76,8 +75,7 @@ export default function Home() {
 
       {/* Konten Utama */}
       <motion.div
-        className="relative max-w-lg w-full p-10 space-y-6 
-        bg-white/50 dark:bg-gray-800/50 backdrop-blur-md md:rounded-xl shadow-2xl border border-purple-300/50 dark:border-purple-500/30"
+        className="relative max-w-xl w-full p-10 space-y-6"
         initial="hidden"
         animate="visible"
         variants={fadeInVariants}
@@ -87,14 +85,9 @@ export default function Home() {
           <Profile />
         </motion.div>
 
-        {/* Toggle Dark Mode */}
-        <motion.div {...useScrollAnimation()}>
-          <ThemeToggle />
-        </motion.div>
-
         {/* Ikon Sosial */}
         <motion.div {...useScrollAnimation()}>
-          <SocialIcons />
+          <TechStack />
         </motion.div>
 
         {/* Kontak */}

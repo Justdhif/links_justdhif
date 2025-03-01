@@ -48,14 +48,13 @@ const ContactTabs = () => {
   return (
     <div className="w-full mx-auto mt-10">
       {/* Tab Navigation */}
-      <div className="flex justify-center space-x-3 mb-6">
+      <div className="flex justify-center space-x-2 md:space-x-3 mb-6">
         {contacts.map((contact, index) => (
           <button
             key={index}
-            className={`relative px-5 py-2 font-semibold rounded-lg border-2 border-gray-800 dark:border-gray-200 transition-all duration-300 overflow-hidden flex items-center`}
+            className={`relative px-4 py-2 md:px-5 md:py-2 font-semibold text-sm md:text-base lg:text-lg rounded-lg border-2 border-gray-800 dark:border-gray-200 transition-all duration-300 overflow-hidden flex items-center`}
             onClick={() => setActiveTab(index)}
           >
-            {/* Background animasi setengah dengan ujung kanan melengkung */}
             {activeTab === index && (
               <motion.span
                 className={`absolute left-0 top-0 h-full w-1/2 ${contact.halfBg}`}
@@ -69,7 +68,6 @@ const ContactTabs = () => {
               />
             )}
 
-            {/* Icon dengan animasi dari kiri */}
             <motion.span
               initial={{ x: -20, opacity: 0 }}
               animate={
@@ -87,7 +85,7 @@ const ContactTabs = () => {
               initial={{ x: 0 }}
               animate={activeTab === index ? { x: 10 } : { x: -5 }}
               transition={{ duration: 0.3 }}
-              className="mr-2 relative z-10"
+              className="relative z-10"
             >
               {contact.name}
             </motion.span>

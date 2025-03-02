@@ -92,7 +92,7 @@ const ContactTabs = () => {
               initial={{ x: 0 }}
               animate={activeTab === index ? { x: 3 } : { x: -5 }}
               transition={{ duration: 0.3 }}
-              className="relative z-10"
+              className="relative z-10 font-bold text-xs md:text-sm "
             >
               {contact.name}
             </motion.span>

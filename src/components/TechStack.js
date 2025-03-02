@@ -23,19 +23,32 @@ const techStacks = [
   { id: 6, icon: faReact, name: 'React', color: '#61DAFB' },
   { id: 7, icon: faHtml5, name: 'HTML5', color: '#E34F26' },
   { id: 8, icon: faGithub, name: 'GitHub', color: '#181717' },
-  { id: 9, icon: faGitlab, name: 'Gitlab', color: '#F05032' },
-  { id: 10, icon: faFigma, name: 'Figma', color: '#181717' },
+  {
+    id: 9,
+    icon: faGitlab,
+    name: 'GitLab',
+    color: '#181717', // Tetap hitam
+    gradient: 'linear-gradient(45deg, #FC6D26, #E24329, #FCA121)',
+  },
+  {
+    id: 10,
+    icon: faFigma,
+    name: 'Figma',
+    color: '#181717', // Tetap hitam
+    gradient:
+      'linear-gradient(135deg, #FF7262, #F24E1E, #A259FF, #1ABCFE)',
+  },
 ];
 
 const TechIcons = () => {
   return (
     <div className="w-full justify-center">
       <h1 className="text-2xl font-bold text-center">⚒️ Tech stack ⚒️</h1>
-      <p className='text-center'>Web development tech stack</p>
+      <p className="text-center">Web development tech stack</p>
 
       <div className="relative w-full py-10 overflow-hidden">
-        <div className="absolute top-0 left-0 w-28 h-full bg-gradient-to-r from-gray-900 to-transparent z-10"></div>
-        <div className="absolute top-0 right-0 w-20 h-full bg-gradient-to-l from-gray-900 to-transparent z-10"></div>
+        <div className="absolute top-0 left-0 w-24 h-full bg-gradient-to-r from-gray-900 to-transparent z-10"></div>
+        <div className="absolute top-0 right-0 w-24 h-full bg-gradient-to-l from-gray-900 to-transparent z-10"></div>
 
         <div className="w-full flex flex-col gap-5">
           {/* Baris pertama (kanan ke kiri) */}
@@ -44,14 +57,18 @@ const TechIcons = () => {
               {[...techStacks, ...techStacks].map((item, index) => (
                 <div
                   key={`row1-${index}`}
-                  className="flex-shrink-0 py-2 px-4 flex items-center justify-center gap-2 rounded-full shadow-md mx-3"
-                  style={{ backgroundColor: item.color }}
+                  className="flex-shrink-0 py-2 px-4 flex items-center justify-center gap-2 rounded-full shadow-md mx-3 text-white"
+                  style={
+                    item.gradient
+                      ? { backgroundImage: item.gradient }
+                      : { backgroundColor: item.color }
+                  }
                 >
                   <FontAwesomeIcon
                     icon={item.icon}
                     className="w-6 h-6 text-white"
                   />
-                  <p className="text-md font-semibold text-white">{item.name}</p>
+                  <p className="text-md font-semibold">{item.name}</p>
                 </div>
               ))}
             </div>
@@ -63,14 +80,18 @@ const TechIcons = () => {
               {[...techStacks, ...techStacks].map((item, index) => (
                 <div
                   key={`row2-${index}`}
-                  className="flex-shrink-0 py-2 px-4 flex items-center justify-center gap-2 rounded-full shadow-md mx-3"
-                  style={{ backgroundColor: item.color }}
+                  className="flex-shrink-0 py-2 px-4 flex items-center justify-center gap-2 rounded-full shadow-md mx-3 text-white"
+                  style={
+                    item.gradient
+                      ? { backgroundImage: item.gradient }
+                      : { backgroundColor: item.color }
+                  }
                 >
                   <FontAwesomeIcon
                     icon={item.icon}
                     className="w-6 h-6 text-white"
                   />
-                  <p className="text-md font-semibold text-white">{item.name}</p>
+                  <p className="text-md font-semibold">{item.name}</p>
                 </div>
               ))}
             </div>

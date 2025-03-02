@@ -2,7 +2,6 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { useEffect, useRef } from 'react';
 import Typed from 'typed.js';
-import ThemeToggle from './ThemeToggle';
 
 const Profile = () => {
   const textRef = useRef(null);
@@ -10,9 +9,9 @@ const Profile = () => {
   useEffect(() => {
     const typed = new Typed(textRef.current, {
       strings: [
-        'Halo! Nama saya Nadhif.',
-        'Seorang siswa SMK Taruna Bhakti.',
-        'Seorang Web Developer.',
+        'Hello! My name is Nadhif.',
+        'A student at SMK Taruna Bhakti.',
+        'A Web Developer.',
       ],
       typeSpeed: 50,
       backSpeed: 25,
@@ -24,9 +23,16 @@ const Profile = () => {
     };
   }, []);
 
+  const handleDownloadCV = () => {
+    const link = document.createElement('a');
+    link.href = '/files/CV_Nadhif.pdf'; // Path file CV (store in public/files/)
+    link.download = 'CV_Nadhif.pdf';
+    link.click();
+  };
+
   return (
     <div className="flex flex-col items-center gap-3">
-      {/* Gambar Profil dengan Animasi */}
+      {/* Profile Image with Animation */}
       <motion.div
         whileHover={{ scale: 1.1 }}
         className="relative w-24 h-24 sm:w-32 sm:h-32 group rounded-full overflow-hidden border-4 border-transparent transition-all duration-300"
@@ -35,26 +41,41 @@ const Profile = () => {
           src="/images/profile.jpg"
           alt="Profile"
           fill
-          className="rounded-full object-cover border-2 border-cyan-500 shadow-lg group-hover:border-cyan-600 transition-all duration-300 dark:border-cyan-500 dark:group-hover:border-cyan-400"
+          className="rounded-full object-cover border-2 border-cyan-500 shadow-lg group-hover:border-cyan-600 transition-all duration-300"
         />
       </motion.div>
 
-      {/* Nama User dengan Animasi */}
+      {/* Username with Animation */}
       <motion.h1
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.2 }}
-        className="text-2xl font-bold text-cyan-600 dark:text-cyan-400 hover:text-cyan-700 dark:hover:text-cyan-300 transition-colors duration-300"
+        className="text-2xl font-bold text-cyan-400 hover:text-cyan-300 transition-colors duration-300"
       >
         Justdhif
       </motion.h1>
 
-      {/* Teks dengan efek typing */}
-      <p className="text-md text-gray-500 text-center hover:text-gray-700 transition-colors duration-300 dark:text-gray-300 dark:hover:text-gray-100 inline-block">
-        <span ref={textRef}></span>
-      </p>
+      {/* Typing Text */}
+      <div className="relative flex items-center">
+        <span
+          ref={textRef}
+          className="text-md text-gray-300 hover:text-gray-200 transition-colors duration-300 inline-block"
+        ></span>
+      </div>
 
-      <ThemeToggle />
+      {/* Download CV Button */}
+      <button
+        onClick={handleDownloadCV}
+        className="px-4 py-2 flex items-center gap-3 text-white bg-gray-800 rounded-lg hover:bg-gray-700 transition-all duration-300"
+      >
+        {/* Radar Animation */}
+        <div className="relative w-4 h-4">
+          <div className="absolute inset-0 bg-cyan-400 rounded-full animate-ping"></div>
+          <div className="absolute inset-0 w-full h-full bg-cyan-400 rounded-full"></div>
+        </div>
+
+        CV is available for download
+      </button>
     </div>
   );
 };

@@ -22,7 +22,7 @@ const CommentItem = ({ comment = {}, index = 0 }) => {
       animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
       exit={{ opacity: 0, y: -20, scale: 0.95 }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
-      className="bg-gray-100 p-4 rounded-lg flex items-start mb-3 last:mb-0 gap-3 border border-gray-300 shadow-md transition-all duration-300 hover:shadow-cyan-300 dark:bg-gray-800 dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:shadow-cyan-500"
+      className="p-4 rounded-lg flex items-start mb-3 last:mb-0 gap-3 border shadow-md transition-all duration-300 bg-gray-800 border-gray-600 hover:bg-gray-700"
     >
       {/* Gambar Profil */}
       <motion.div
@@ -34,16 +34,16 @@ const CommentItem = ({ comment = {}, index = 0 }) => {
           alt={`Avatar of ${name}`}
           width={50}
           height={50}
-          className="rounded-full border-2 border-cyan-500 object-cover dark:border-cyan-500"
+          className="rounded-full border-2 object-cover border-cyan-500"
         />
       </motion.div>
 
       {/* Konten Komentar */}
       <div className="flex flex-col">
-        <strong className="text-cyan-600 text-lg dark:text-cyan-400">
+        <strong className="text-cyan-400">
           {name}
         </strong>
-        <p className="text-gray-700 mt-1 dark:text-gray-200">
+        <p className="mt-1 text-gray-200">
           {comment.comment || 'No comment provided.'}
         </p>
         {comment.timestamp?.toDate && (

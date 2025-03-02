@@ -15,7 +15,7 @@ const CommentForm = () => {
 
   const sendWhatsAppMessage = async (name, comment) => {
     const currentDate = new Date();
-    const formattedDate = currentDate.toLocaleString('id-ID', {
+    const formattedDate = currentDate.toLocaleString('en-US', {
       weekday: 'long',
       day: 'numeric',
       month: 'long',
@@ -26,11 +26,11 @@ const CommentForm = () => {
     });
 
     const message =
-      `📢 *Komentar Baru Masuk!*\n\n` +
-      `👤 *Nama:* ${name}\n` +
-      `💬 *Komentar:* "${comment}"\n\n` +
-      `📅 *Waktu:* ${formattedDate}\n\n` +
-      `🚀 _Cek komentar terbaru sekarang!_`;
+      `📢 *New Comment Received!*\n\n` +
+      `👤 *Name:* ${name}\n` +
+      `💬 *Comment:* "${comment}"\n\n` +
+      `📅 *Time:* ${formattedDate}\n\n` +
+      `🚀 _Check the latest comments now!_`;
 
     try {
       const response = await fetch('https://api.fonnte.com/send', {
@@ -49,30 +49,30 @@ const CommentForm = () => {
       console.log('Fonnte API Response:', data);
 
       if (!data.status) {
-        throw new Error(data.message || 'Gagal mengirim pesan');
+        throw new Error(data.message || 'Failed to send message');
       }
 
-      alert('Komentar berhasil dikirim ke WhatsApp!');
+      alert('Comment successfully sent to WhatsApp!');
     } catch (error) {
       console.error('Error sending WhatsApp message:', error);
-      alert('Gagal mengirim komentar ke WhatsApp.');
+      alert('Failed to send comment to WhatsApp.');
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!name.trim() || !comment.trim()) return; // Cegah input kosong
+    if (!name.trim() || !comment.trim()) return; // Prevent empty input
 
     setLoading(true);
     try {
-      // Simpan komentar ke Firestore
+      // Save comment to Firestore
       await addDoc(collection(db, 'comments'), {
         name,
         comment,
         timestamp: serverTimestamp(),
       });
 
-      // Kirim pesan ke WhatsApp melalui Fonnte
+      // Send message to WhatsApp via Fonnte
       await sendWhatsAppMessage(name, comment);
 
       // Reset form
@@ -95,34 +95,34 @@ const CommentForm = () => {
         transition: { duration: 0.5, ease: 'easeOut' },
       }}
     >
-      {/* Input Nama */}
+      {/* Name Input */}
       <motion.input
         type="text"
-        placeholder="Nama"
+        placeholder="Name"
         value={name}
         onChange={(e) => setName(e.target.value)}
-        className="w-full p-3 rounded bg-gray-100 text-gray-900 border border-gray-400 outline-none focus:ring-2 focus:ring-blue-500 transition-all dark:bg-gray-700 dark:border-gray-500 dark:text-white"
+        className="w-full p-3 rounded bg-gray-800 text-white border border-gray-600 outline-none focus:ring-2 focus:ring-blue-500 transition-all"
         whileFocus={{ scale: 1.02 }}
       />
 
-      {/* Textarea Komentar */}
+      {/* Comment Textarea */}
       <motion.textarea
-        placeholder="Tulis komentar..."
+        placeholder="Write a comment..."
         value={comment}
         onChange={(e) => setComment(e.target.value)}
-        className="w-full p-3 rounded bg-gray-100 text-gray-900 border border-gray-400 outline-none resize-none focus:ring-2 focus:ring-blue-500 transition-all dark:bg-gray-700 dark:border-gray-500 dark:text-white"
+        className="w-full p-3 rounded bg-gray-800 text-white border border-gray-600 outline-none resize-none focus:ring-2 focus:ring-blue-500 transition-all"
         whileFocus={{ scale: 1.02 }}
       />
 
-      {/* Tombol Submit */}
+      {/* Submit Button */}
       <motion.button
         type="submit"
-        className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded shadow-md transition-all dark:bg-blue-500 dark:hover:bg-blue-400"
+        className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded shadow-md transition-all"
         disabled={loading}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
       >
-        {loading ? 'Mengirim...' : 'Kirim'}
+        {loading ? 'Sending...' : 'Submit'}
       </motion.button>
     </motion.form>
   );

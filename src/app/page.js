@@ -12,7 +12,7 @@ import { db } from '../firebase';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 
 export default function Home() {
-  // Simpan komentar ke Firestore
+  // Save comments to Firestore
   const handleCommentSubmit = async (newComment) => {
     try {
       await addDoc(collection(db, 'comments'), {
@@ -24,7 +24,7 @@ export default function Home() {
     }
   };
 
-  // Variants untuk animasi masuk
+  // Variants for fade-in animation
   const fadeInVariants = {
     hidden: { opacity: 0, y: 30 },
     visible: {
@@ -34,7 +34,7 @@ export default function Home() {
     },
   };
 
-  // Hook untuk mendeteksi scroll
+  // Hook for scroll animation detection
   const useScrollAnimation = () => {
     const controls = useAnimation();
     const { ref, inView } = useInView({ threshold: 0.3 });
@@ -49,10 +49,10 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center md:p-10 sm:p-4 text-gray-900 dark:text-gray-200 transition-colors duration-300">
-      {/* Konten Utama */}
+    <div className="min-h-screen flex flex-col items-center justify-center md:p-10 sm:p-4 text-gray-200 bg-gray-900 transition-colors duration-300">
+      {/* Main Content */}
       <motion.div
-        className="relative max-w-xl w-full p-6 space-y-6"
+        className="relative max-w-xl w-full p-12 md:p-6 space-y-6"
         initial="hidden"
         animate="visible"
         variants={fadeInVariants}
@@ -62,30 +62,30 @@ export default function Home() {
           <Profile />
         </motion.div>
 
-        {/* Ikon Sosial */}
+        {/* Social Icons */}
         <motion.div {...useScrollAnimation()}>
           <TechStack />
         </motion.div>
 
-        {/* Kontak */}
+        {/* Contact */}
         <motion.div {...useScrollAnimation()}>
           <ContactIcons />
         </motion.div>
 
-        {/* Judul Komentar */}
+        {/* Comment Title */}
         <motion.h1
-          className="font-bold text-lg text-gray-700 dark:text-gray-300 border-b border-gray-400 pb-2"
+          className="font-bold text-lg text-gray-300 border-b border-gray-600 pb-2"
           {...useScrollAnimation()}
         >
           Comments
         </motion.h1>
 
-        {/* Daftar Komentar */}
+        {/* Comment List */}
         <motion.div {...useScrollAnimation()}>
           <CommentList />
         </motion.div>
 
-        {/* Form Komentar */}
+        {/* Comment Form */}
         <motion.div {...useScrollAnimation()}>
           <CommentForm onCommentSubmit={handleCommentSubmit} />
         </motion.div>

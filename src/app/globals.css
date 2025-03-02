@@ -22,3 +22,7 @@ body {
   box-sizing: border-box;
   background-color: #000;
 }
+
+::-webkit-scrollbar {
+  display: none;
+}

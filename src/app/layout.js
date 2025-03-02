@@ -13,7 +13,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       {/* Meta theme */}
       <head>
-        <meta name="theme-color" content="#000" />
+        <meta name="theme-color" content="#0ef" />
       </head>
 
       <body className="bg-white dark:bg-gray-900 text-black dark:text-white">

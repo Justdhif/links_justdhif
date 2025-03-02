@@ -26,7 +26,7 @@ export default function Home() {
 
   // Variants untuk animasi masuk
   const fadeInVariants = {
-    hidden: { opacity: 0, y: 50 },
+    hidden: { opacity: 0, y: 30 },
     visible: {
       opacity: 1,
       y: 0,
@@ -42,8 +42,6 @@ export default function Home() {
     useEffect(() => {
       if (inView) {
         controls.start('visible');
-      } else {
-        controls.start('hidden');
       }
     }, [controls, inView]);
 
@@ -51,31 +49,10 @@ export default function Home() {
   };
 
   return (
-    <div
-      className="min-h-screen flex flex-col items-center justify-center md:p-10 sm:p-0 relative overflow-hidden 
-      bg-white text-black dark:bg-black dark:text-white transition-colors duration-300"
-    >
-      {/* Efek Background Gradient Futuristic */}
-      <div className="absolute inset-0 bg-gradient-to-r from-blue-300 via-purple-400 to-gray-200 dark:from-blue-900 dark:via-purple-900 dark:to-black opacity-50"></div>
-
-      {/* Lingkaran Animasi */}
-      <motion.div
-        className="absolute w-72 h-72 bg-blue-300/40 dark:bg-blue-500/30 blur-3xl rounded-full"
-        animate={{ x: [0, 100, -100, 0], y: [0, -100, 100, 0] }}
-        transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
-        style={{ top: '10%', left: '10%' }}
-      ></motion.div>
-
-      <motion.div
-        className="absolute w-80 h-80 bg-purple-400/40 dark:bg-purple-500/30 blur-3xl rounded-full"
-        animate={{ x: [0, -100, 100, 0], y: [0, 100, -100, 0] }}
-        transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }}
-        style={{ bottom: '10%', right: '10%' }}
-      ></motion.div>
-
+    <div className="min-h-screen flex flex-col items-center justify-center md:p-10 sm:p-4 text-gray-900 dark:text-gray-200 transition-colors duration-300">
       {/* Konten Utama */}
       <motion.div
-        className="relative max-w-xl w-full p-10 space-y-6"
+        className="relative max-w-xl w-full p-6 space-y-6 bg-white dark:bg-gray-800 shadow-md rounded-lg"
         initial="hidden"
         animate="visible"
         variants={fadeInVariants}
@@ -97,7 +74,7 @@ export default function Home() {
 
         {/* Judul Komentar */}
         <motion.h1
-          className="font-bold text-lg text-purple-600 dark:text-purple-400 border-b border-purple-300 dark:border-purple-500 pb-2"
+          className="font-bold text-lg text-gray-700 dark:text-gray-300 border-b border-gray-400 pb-2"
           {...useScrollAnimation()}
         >
           Comments

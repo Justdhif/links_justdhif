@@ -101,7 +101,7 @@ const CommentForm = () => {
         placeholder="Nama"
         value={name}
         onChange={(e) => setName(e.target.value)}
-        className="w-full p-3 rounded bg-gray-100 text-gray-900 border border-gray-400 outline-none focus:ring-2 focus:ring-blue-500 transition-all dark:bg-gray-800 dark:border-gray-600 dark:text-gray-100"
+        className="w-full p-3 rounded bg-gray-100 text-gray-900 border border-gray-400 outline-none focus:ring-2 focus:ring-blue-500 transition-all dark:bg-gray-700 dark:border-gray-500 dark:text-white"
         whileFocus={{ scale: 1.02 }}
       />
 
@@ -110,14 +110,14 @@ const CommentForm = () => {
         placeholder="Tulis komentar..."
         value={comment}
         onChange={(e) => setComment(e.target.value)}
-        className="w-full p-3 rounded bg-gray-100 text-gray-900 border border-gray-400 outline-none resize-none focus:ring-2 focus:ring-blue-500 transition-all dark:bg-gray-800 dark:border-gray-600 dark:text-gray-100"
+        className="w-full p-3 rounded bg-gray-100 text-gray-900 border border-gray-400 outline-none resize-none focus:ring-2 focus:ring-blue-500 transition-all dark:bg-gray-700 dark:border-gray-500 dark:text-white"
         whileFocus={{ scale: 1.02 }}
       />
 
       {/* Tombol Submit */}
       <motion.button
         type="submit"
-        className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded shadow-md transition-all"
+        className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded shadow-md transition-all dark:bg-blue-500 dark:hover:bg-blue-400"
         disabled={loading}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}

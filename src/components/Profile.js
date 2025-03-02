@@ -9,7 +9,11 @@ const Profile = () => {
 
   useEffect(() => {
     const typed = new Typed(textRef.current, {
-      strings: ['Halo! Nama saya Nadhif.', 'Seorang siswa SMK Taruna Bhakti.', 'Seorang Web Developer.'],
+      strings: [
+        'Halo! Nama saya Nadhif.',
+        'Seorang siswa SMK Taruna Bhakti.',
+        'Seorang Web Developer.',
+      ],
       typeSpeed: 50,
       backSpeed: 25,
       loop: true,
@@ -31,14 +35,8 @@ const Profile = () => {
           src="/images/profile.jpg"
           alt="Profile"
           fill
-          className="rounded-full object-cover border-2 border-blue-500 shadow-lg group-hover:border-blue-900 transition-all duration-300 dark:border-purple-400 dark:group-hover:border-white"
+          className="rounded-full object-cover border-2 border-cyan-500 shadow-lg group-hover:border-cyan-600 transition-all duration-300 dark:border-cyan-500 dark:group-hover:border-cyan-400"
         />
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileHover={{ opacity: 1, scale: 1.2 }}
-          transition={{ duration: 0.5 }}
-          className="absolute inset-0 bg-gradient-to-r from-purple-500/60 via-transparent to-purple-500/60 z-0 pointer-events-none"
-        ></motion.div>
       </motion.div>
 
       {/* Nama User dengan Animasi */}
@@ -46,15 +44,13 @@ const Profile = () => {
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.2 }}
-        className="text-2xl font-bold text-blue-500 dark:text-purple-400 hover:text-blue-600 dark:hover:text-purple-500 transition-colors duration-300"
+        className="text-2xl font-bold text-cyan-600 dark:text-cyan-400 hover:text-cyan-700 dark:hover:text-cyan-300 transition-colors duration-300"
       >
         Justdhif
       </motion.h1>
 
       {/* Teks dengan efek typing */}
-      <p
-        className="text-md text-gray-500 text-center hover:text-gray-700 transition-colors duration-300 dark:text-gray-300 dark:hover:text-gray-100 inline-block"
-      >
+      <p className="text-md text-gray-500 text-center hover:text-gray-700 transition-colors duration-300 dark:text-gray-300 dark:hover:text-gray-100 inline-block">
         <span ref={textRef}></span>
       </p>
 

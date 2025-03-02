@@ -16,7 +16,7 @@ export default function RootLayout({ children }) {
         <meta name="theme-color" content="#0ef" />
       </head>
 
-      <body className="bg-white dark:bg-gray-900 text-black dark:text-white">
+      <body className="bg-white dark:bg-gray-800 text-black dark:text-white">
         <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>

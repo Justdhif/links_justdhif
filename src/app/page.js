@@ -52,7 +52,7 @@ export default function Home() {
     <div className="min-h-screen flex flex-col items-center justify-center md:p-10 sm:p-4 text-gray-900 dark:text-gray-200 transition-colors duration-300">
       {/* Konten Utama */}
       <motion.div
-        className="relative max-w-xl w-full p-6 space-y-6 bg-white dark:bg-gray-800 shadow-md rounded-lg"
+        className="relative max-w-xl w-full p-6 space-y-6"
         initial="hidden"
         animate="visible"
         variants={fadeInVariants}

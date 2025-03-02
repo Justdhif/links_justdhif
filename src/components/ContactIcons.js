@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faWhatsapp,
   faInstagram,
+  faTelegram,
   faGithub,
 } from '@fortawesome/free-brands-svg-icons';
 
@@ -19,6 +20,7 @@ const contacts = [
     icon: faWhatsapp,
     username: 'Justdhif',
     followers: '500+ kontak',
+    profilePic: 'images/profile.jpg', // URL gambar profil
   },
   {
     name: 'Instagram',
@@ -29,16 +31,18 @@ const contacts = [
     icon: faInstagram,
     username: '@justdhif.dev',
     followers: '600 followers',
+    profilePic: 'images/profile-ig.jpg', // URL gambar profil
   },
   {
-    name: 'GitHub',
-    url: 'https://github.com/Justdhif',
-    bgColor: 'bg-gradient-to-r from-gray-900 to-gray-700',
-    halfBg: 'bg-gradient-to-r from-gray-600 to-gray-800',
-    textColor: 'text-gray-100',
-    icon: faGithub,
+    name: 'Telegram',
+    url: 'https://t.me/Justdhif',
+    bgColor: 'bg-gradient-to-r from-blue-500 to-blue-700',
+    halfBg: 'bg-gradient-to-r from-blue-400 to-blue-600',
+    textColor: 'text-blue-100',
+    icon: faTelegram,
     username: 'Justdhif',
-    followers: '20 Repositories',
+    followers: '300 members',
+    profilePic: 'images/profile-telegram.jpg',
   },
 ];
 
@@ -52,7 +56,7 @@ const ContactTabs = () => {
         {contacts.map((contact, index) => (
           <button
             key={index}
-            className={`relative px-4 py-2 md:px-5 md:py-2 font-semibold text-sm md:text-base lg:text-lg rounded-lg border-2 border-gray-800 dark:border-gray-200 transition-all duration-300 overflow-hidden flex items-center`}
+            className={`relative px-3 py-2 md:px-5 md:py-2 font-semibold text-sm md:text-base lg:text-lg rounded-lg border-2 border-gray-800 dark:border-gray-200 transition-all duration-300 overflow-hidden flex items-center`}
             onClick={() => setActiveTab(index)}
           >
             {activeTab === index && (
@@ -72,7 +76,7 @@ const ContactTabs = () => {
               initial={{ x: -20, opacity: 0 }}
               animate={
                 activeTab === index
-                  ? { x: 0, opacity: 1 }
+                  ? { x: -3, opacity: 1 }
                   : { x: -20, opacity: 0 }
               }
               transition={{ duration: 0.3 }}
@@ -83,7 +87,7 @@ const ContactTabs = () => {
 
             <motion.span
               initial={{ x: 0 }}
-              animate={activeTab === index ? { x: 10 } : { x: -5 }}
+              animate={activeTab === index ? { x: 3 } : { x: -5 }}
               transition={{ duration: 0.3 }}
               className="relative z-10"
             >
@@ -101,38 +105,74 @@ const ContactTabs = () => {
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.9, y: -20 }}
           transition={{ duration: 0.4 }}
-          className="relative flex flex-col items-center justify-center w-full p-6 rounded-xl shadow-lg transition-all bg-gray-200 dark:bg-gray-800"
+          className="relative flex flex-col items-center justify-center w-full p-6 rounded-2xl shadow-lg transition-all bg-gray-200 dark:bg-gray-800 overflow-hidden"
         >
           {/* Background 1/4 Card */}
           <div
-            className={`absolute top-0 left-0 w-1/4 h-full ${contacts[activeTab].bgColor} rounded-r-full`}
+            className={`absolute top-0 left-0 w-full h-2/6 ${contacts[activeTab].bgColor}`}
           />
 
-          {/* Icon */}
-          <div className="relative z-10 flex items-center justify-center w-16 h-16 bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 rounded-full mb-3">
-            <FontAwesomeIcon
-              icon={contacts[activeTab].icon}
-              className="w-8 h-8"
+          {/* Profile Picture */}
+          <div className="relative z-10 flex items-center justify-center w-24 h-24 bg-gray-100 dark:bg-gray-900 border-2 border-gray-800 dark:border-gray-200 rounded-full mb-3 overflow-hidden">
+            <img
+              src={contacts[activeTab].profilePic}
+              alt="Profile"
+              className="w-full h-full object-cover"
             />
           </div>
 
+          {/* Name */}
           <span className="text-xl font-bold text-gray-900 dark:text-gray-100">
             {contacts[activeTab].username}
           </span>
+
+          {/* Followers/Repositories */}
           <span className="text-sm opacity-70 mt-2 text-gray-700 dark:text-gray-300">
             {contacts[activeTab].followers}
           </span>
 
+          {/* Visit Button */}
           <a
             href={contacts[activeTab].url}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-4 px-5 py-2 rounded-lg font-semibold shadow-md transition-all bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 hover:bg-gray-100"
+            className={`mt-4 px-5 py-2 rounded-full font-semibold shadow-md transition-all duration-300 ${contacts[activeTab].bgColor} text-gray-100 hover:bg-gray-100`}
           >
-            Visit
+            Visit {contacts[activeTab].name}
           </a>
         </motion.div>
       </AnimatePresence>
+
+      {/* GitHub Section */}
+      <div className="mt-5 p-2 rounded-2xl shadow-lg bg-gradient-to-r from-gray-600 to-gray-800 flex items-center gap-4 md:gap-10">
+        <img
+          src="/images/profile-github.jpg"
+          alt="GitHub"
+          className="w-24 h-24 rounded-[8px]"
+        />
+        <div>
+          <div className="flex items-center space-x-3">
+            <FontAwesomeIcon
+              icon={faGithub}
+              className="text-xl text-gray-900 dark:text-gray-100"
+            />
+            <h2 className="text-lg font-bold text-gray-900 dark:text-gray-100">
+              Justdhif
+            </h2>
+          </div>
+          <p className="text-sm opacity-70 my-2 text-gray-700 dark:text-gray-300">
+            20 Repositories
+          </p>
+          <a
+            href="https://github.com/Justdhif"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-5 py-2 rounded-lg font-semibold shadow-md text-xs transition-all bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 hover:bg-gray-100"
+          >
+            Visit GitHub
+          </a>
+        </div>
+      </div>
     </div>
   );
 };

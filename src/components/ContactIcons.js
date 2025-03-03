@@ -114,13 +114,20 @@ const ContactTabs = () => {
           <div
             className={`absolute top-0 left-0 w-full h-2/6 ${contacts[activeTab].bgColor}`}
           />
-
-          {/* Profile Picture */}
-          <div className="relative z-10 flex items-center justify-center w-24 h-24 bg-gray-900 border-2 border-gray-200 rounded-full mb-3 overflow-hidden">
-            <img
-              src={contacts[activeTab].profilePic}
-              alt="Profile"
-              className="w-full h-full object-cover"
+          {/* QR Code (Ganti dari Foto Profil) */}
+          <div className="relative z-10 flex items-center justify-center w-24 h-24 bg-white border-4 border-gray-200 rounded-lg mb-3 overflow-hidden shadow-lg">
+            <QRCodeCanvas
+              value={contacts[activeTab].url}
+              size={90}
+              bgColor="#ffffff"
+              fgColor="#000000"
+              className="rounded-lg"
+              imageSettings={{
+                src: contacts[activeTab].profilePic,
+                height: 30,
+                width: 30,
+                excavate: true,
+              }}
             />
           </div>
 

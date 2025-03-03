@@ -7,9 +7,10 @@ import Profile from '../components/Profile';
 import TechStack from '../components/TechStack';
 import EncryptedText from '../components/EncryptedText';
 import ContactIcons from '../components/ContactIcons';
-import RandomWords from '../components/RandomWords';
-import CommentForm from '../components/CommentForm';
 import CommentList from '../components/CommentList';
+import RandomWords from '../components/RandomWords';
+import ProjectList from '../components/ProjectList';
+import CommentForm from '../components/CommentForm';
 import Location from '../components/Location';
 import { db } from '../firebase';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
@@ -74,13 +75,13 @@ export default function Home() {
           <EncryptedText text="WEB DEVELOPER" />
         </motion.div>
 
+        <motion.div {...useScrollAnimation()}>
+          <ProjectList />
+        </motion.div>
+
         {/* Contact */}
         <motion.div {...useScrollAnimation()}>
           <ContactIcons />
-        </motion.div>
-
-        <motion.div {...useScrollAnimation()}>
-          <RandomWords />
         </motion.div>
 
         {/* Comment Title */}
@@ -99,6 +100,10 @@ export default function Home() {
         {/* Comment Form */}
         <motion.div {...useScrollAnimation()}>
           <CommentForm onCommentSubmit={handleCommentSubmit} />
+        </motion.div>
+
+        <motion.div {...useScrollAnimation()}>
+          <RandomWords />
         </motion.div>
 
         <motion.div {...useScrollAnimation()}>

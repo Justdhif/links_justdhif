@@ -23,6 +23,34 @@ body {
   background-color: #000;
 }
 
+@keyframes marque {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes marque-reverse {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.animat-marquee {
+  display: flex;
+  animation: marque 50s linear infinite;
+}
+
+.animat-marquee-reverse {
+  display: flex;
+  animation: marque-reverse 50s linear infinite;
+}
+
 ::-webkit-scrollbar {
   display: none;
 }

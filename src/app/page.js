@@ -7,6 +7,7 @@ import Profile from '../components/Profile';
 import TechStack from '../components/TechStack';
 import EncryptedText from '../components/EncryptedText';
 import ContactIcons from '../components/ContactIcons';
+import RandomWords from '../components/RandomWords';
 import CommentForm from '../components/CommentForm';
 import CommentList from '../components/CommentList';
 import Location from '../components/Location';
@@ -76,6 +77,10 @@ export default function Home() {
         {/* Contact */}
         <motion.div {...useScrollAnimation()}>
           <ContactIcons />
+        </motion.div>
+
+        <motion.div {...useScrollAnimation()}>
+          <RandomWords />
         </motion.div>
 
         {/* Comment Title */}

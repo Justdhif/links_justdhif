@@ -13,8 +13,8 @@ export default {
         foreground: 'var(--foreground)',
       },
       animation: {
-        marquee: 'marquee 10s linear infinite',
-        'marquee-reverse': 'marquee-reverse 10s linear infinite',
+        marquee: 'marquee 15s linear infinite',
+        'marquee-reverse': 'marquee-reverse 15s linear infinite',
       },
       keyframes: {
         marquee: {

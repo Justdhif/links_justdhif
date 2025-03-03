@@ -41,7 +41,7 @@ const CustomMap = () => {
       setProfileIcon(
         new L.Icon({
           iconUrl: '/images/profile.jpg', // Path relatif di Next.js
-          iconSize: [70, 70],
+          iconSize: [50, 50],
           iconAnchor: [25, 50],
           popupAnchor: [0, -45],
           className: 'border-2 border-cyan-500 rounded-full',

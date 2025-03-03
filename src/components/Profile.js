@@ -63,6 +63,16 @@ const Profile = () => {
         ></span>
       </div>
 
+      {/* Bio */}
+      <motion.p
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.4 }}
+        className="text-sm text-justify md:text-center text-gray-300 hover:text-gray-200 transition-colors duration-300"
+      >
+        So, is this love <a href='https://www.instagram.com/fairzchls?igsh=MTJ5dXJtNTdodWp2'>cha?</a>
+      </motion.p>
+
       {/* Download CV Button */}
       <button
         onClick={handleDownloadCV}

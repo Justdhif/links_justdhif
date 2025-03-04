@@ -6,11 +6,12 @@ import { useInView } from 'react-intersection-observer';
 import Profile from '../components/Profile';
 import TechStack from '../components/TechStack';
 import EncryptedText from '../components/EncryptedText';
+import ProjectList from '../components/ProjectList';
 import ContactIcons from '../components/ContactIcons';
 import CommentList from '../components/CommentList';
-import RandomWords from '../components/RandomWords';
-import ProjectList from '../components/ProjectList';
 import CommentForm from '../components/CommentForm';
+import RandomWords from '../components/RandomWords';
+import TestimonialList from '../components/TestimonialList';
 import Location from '../components/Location';
 import { db } from '../firebase';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
@@ -104,6 +105,10 @@ export default function Home() {
 
         <motion.div {...useScrollAnimation()}>
           <RandomWords />
+        </motion.div>
+
+        <motion.div {...useScrollAnimation()}>
+          <TestimonialList />
         </motion.div>
 
         <motion.div {...useScrollAnimation()}>

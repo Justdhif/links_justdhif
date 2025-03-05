@@ -10,7 +10,7 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import Link from 'next/link';
 
-export default function TestimonialList() {
+const TestimonialList = () => {
   const [testimonials, setTestimonials] = useState([]);
 
   useEffect(() => {
@@ -90,3 +90,5 @@ export default function TestimonialList() {
     </div>
   );
 }
+
+export default TestimonialList;

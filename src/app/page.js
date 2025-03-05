@@ -13,22 +13,9 @@ import CommentForm from '../components/CommentForm';
 import RandomWords from '../components/RandomWords';
 import TestimonialList from '../components/TestimonialList';
 import Location from '../components/Location';
-import { db } from '../firebase';
-import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import ChatbotIcon from '../components/ChatbotIcon';
 
 export default function Home() {
-  // Save comments to Firestore
-  const handleCommentSubmit = async (newComment) => {
-    try {
-      await addDoc(collection(db, 'comments'), {
-        ...newComment,
-        timestamp: serverTimestamp(),
-      });
-    } catch (error) {
-      console.error('Error adding comment: ', error);
-    }
-  };
-
   // Variants for fade-in animation
   const fadeInVariants = {
     hidden: { opacity: 0, y: 30 },
@@ -62,30 +49,47 @@ export default function Home() {
         animate="visible"
         variants={fadeInVariants}
       >
-        {/* Profile */}
+        {/* Profile Section */}
         <motion.div {...useScrollAnimation()}>
           <Profile />
         </motion.div>
 
-        {/* Social Icons */}
+        {/* Tech Stack Section */}
         <motion.div {...useScrollAnimation()}>
           <TechStack />
         </motion.div>
 
+        {/* Encrypted Text Section */}
         <motion.div {...useScrollAnimation()}>
           <EncryptedText text="WEB DEVELOPER" />
         </motion.div>
 
+        {/* Projects Section */}
         <motion.div {...useScrollAnimation()}>
           <ProjectList />
         </motion.div>
 
-        {/* Contact */}
+        {/* Testimonials Section */}
+        <motion.div {...useScrollAnimation()}>
+          <TestimonialList />
+        </motion.div>
+
+        {/* Random Words Section */}
+        <motion.div {...useScrollAnimation()}>
+          <RandomWords />
+        </motion.div>
+
+        {/* Location Section */}
+        <motion.div {...useScrollAnimation()}>
+          <Location />
+        </motion.div>
+
+        {/* Contact Section */}
         <motion.div {...useScrollAnimation()}>
           <ContactIcons />
         </motion.div>
 
-        {/* Comment Title */}
+        {/* Comments Section */}
         <motion.h1
           className="font-bold text-lg text-gray-300 border-b border-gray-600 pb-2"
           {...useScrollAnimation()}
@@ -100,19 +104,12 @@ export default function Home() {
 
         {/* Comment Form */}
         <motion.div {...useScrollAnimation()}>
-          <CommentForm onCommentSubmit={handleCommentSubmit} />
+          <CommentForm />
         </motion.div>
 
+        {/* Chatbot Icon */}
         <motion.div {...useScrollAnimation()}>
-          <RandomWords />
-        </motion.div>
-
-        <motion.div {...useScrollAnimation()}>
-          <TestimonialList />
-        </motion.div>
-
-        <motion.div {...useScrollAnimation()}>
-          <Location />
+          <ChatbotIcon />
         </motion.div>
       </motion.div>
     </div>

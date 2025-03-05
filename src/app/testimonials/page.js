@@ -9,13 +9,13 @@ import {
   serverTimestamp,
 } from 'firebase/firestore';
 import { useRouter } from 'next/navigation';
-import { Star } from 'lucide-react';
+import { Star, ArrowLeft } from 'lucide-react';
 import { motion } from 'framer-motion';
 
-export default function TestimonialPage() {
+const TestimonialPage = () => {
   const [name, setName] = useState('');
   const [message, setMessage] = useState('');
-  const [rating, setRating] = useState(1); // Default ke 1
+  const [rating, setRating] = useState(1);
   const [testimonials, setTestimonials] = useState([]);
   const router = useRouter();
 
@@ -41,7 +41,6 @@ export default function TestimonialPage() {
       timestamp: serverTimestamp(),
     });
 
-    // Update testimonials state secara lokal tanpa reload
     setTestimonials((prev) => [
       { id: docRef.id, name, message, rating, timestamp: new Date() },
       ...prev,
@@ -60,18 +59,27 @@ export default function TestimonialPage() {
       exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.5 }}
     >
-      <motion.h1
-        className="text-2xl font-bold text-white"
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.5 }}
+      {/* Header dengan Icon Arrow */}
+      <motion.div
+        className="flex items-center mt-12 md:mt-6 space-x-3 mb-4 cursor-pointer"
+        onClick={() => router.push('/')}
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
       >
-        Add Your Testimonial
-      </motion.h1>
+        <ArrowLeft size={24} className="text-white" />
+        <motion.h1
+          className="text-xl font-bold text-white md:text-2xl sm:text-lg"
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5 }}
+        >
+          Add Your Testimonial
+        </motion.h1>
+      </motion.div>
 
       <motion.form
         onSubmit={handleSubmit}
-        className="relative max-w-xl w-full p-12 md:p-6 space-y-6"
+        className="relative max-w-xl w-full p-12 md:p-6 md:pt-0 space-y-6"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.3 }}
@@ -105,6 +113,7 @@ export default function TestimonialPage() {
             <Star
               key={star}
               size={28}
+              fill={star <= rating ? 'currentColor' : 'none'}
               className={`cursor-pointer transition ${
                 star <= rating ? 'text-yellow-400' : 'text-gray-500'
               }`}
@@ -124,39 +133,61 @@ export default function TestimonialPage() {
       </motion.form>
 
       <motion.div
-        className="w-full max-w-lg mt-8"
+        className="relative max-w-xl w-full p-12 pt-0 md:p-6 space-y-6"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.6 }}
       >
-        <h2 className="text-2xl font-bold text-white mb-4">All Testimonials</h2>
+        <h2 className="text-xl font-bold text-white mb-4 md:2xl sm:text-lg">
+          All Testimonials
+        </h2>
         {testimonials.length === 0 ? (
           <p className="text-gray-400">No testimonials yet.</p>
         ) : (
           testimonials.map((testimonial, index) => (
             <motion.div
               key={index}
-              className="p-5 bg-gray-800 rounded-lg mt-4 shadow-lg"
+              className="p-6 bg-gray-800 rounded-xl shadow-md border border-gray-700 flex items-start space-x-4"
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: index * 0.2 }}
             >
-              <p className="text-lg text-white font-semibold">
-                {testimonial.name}
-              </p>
-              <p className="text-gray-400">{testimonial.message}</p>
-              <div className="flex space-x-1 mt-2">
-                {[...Array(5)].map((_, i) => (
-                  <Star
-                    key={i}
-                    size={20}
-                    className={
-                      i < testimonial.rating
-                        ? 'text-yellow-400'
-                        : 'text-gray-500'
-                    }
-                  />
-                ))}
+              {/* Avatar */}
+              <div className="w-12 h-12 flex items-center justify-center bg-blue-500 text-white rounded-full text-lg font-bold">
+                {testimonial.name.charAt(0).toUpperCase()}
+              </div>
+
+              {/* Content */}
+              <div className="flex-1">
+                <p className="text-lg text-white font-semibold">
+                  {testimonial.name}
+                </p>
+                <p className="text-gray-400 text-sm">
+                  {new Date(
+                    testimonial.timestamp?.seconds * 1000
+                  ).toLocaleDateString('en-US', {
+                    month: 'long',
+                    day: 'numeric',
+                    year: 'numeric',
+                  })}
+                </p>
+                <p className="text-gray-300 mt-2">{testimonial.message}</p>
+
+                {/* Star Rating */}
+                <div className="flex space-x-1 mt-2">
+                  {[...Array(5)].map((_, i) => (
+                    <Star
+                      key={i}
+                      size={20}
+                      fill={i < testimonial.rating ? 'currentColor' : 'none'}
+                      className={
+                        i < testimonial.rating
+                          ? 'text-yellow-400'
+                          : 'text-gray-600'
+                      }
+                    />
+                  ))}
+                </div>
               </div>
             </motion.div>
           ))
@@ -165,3 +196,5 @@ export default function TestimonialPage() {
     </motion.div>
   );
 }
+
+export default TestimonialPage;

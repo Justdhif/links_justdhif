@@ -7,7 +7,7 @@ import { db } from '../firebase';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const CommentForm = () => {
+const CommentForm = ({ onCommentSubmit }) => {
   const [name, setName] = useState('');
   const [comment, setComment] = useState('');
   const [loading, setLoading] = useState(false);
@@ -16,6 +16,7 @@ const CommentForm = () => {
   const fonnteToken = 'hXNueQDGZjiKKJCZ58WN';
   const commentsURL = 'https://links-justdhif.vercel.app/';
 
+  // Function to send WhatsApp message via Fonnte API
   const sendWhatsAppMessage = async (name, comment) => {
     const currentDate = new Date();
     const formattedDate = currentDate.toLocaleString('en-US', {
@@ -78,8 +79,11 @@ const CommentForm = () => {
     }
   };
 
+  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Validate input
     if (!name.trim() || !comment.trim()) {
       toast.warn('⚠️ Name and comment cannot be empty!', {
         position: 'top-right',
@@ -94,17 +98,25 @@ const CommentForm = () => {
     }
 
     setLoading(true);
+
     try {
       // Save comment to Firestore
-      await addDoc(collection(db, 'comments'), {
+      const newComment = {
         name,
         comment,
         timestamp: serverTimestamp(),
-      });
+      };
+      await addDoc(collection(db, 'comments'), newComment);
 
-      // Send message to WhatsApp via Fonnte
+      // Send WhatsApp notification
       await sendWhatsAppMessage(name, comment);
 
+      // Notify parent component (if needed)
+      if (onCommentSubmit) {
+        onCommentSubmit(newComment);
+      }
+
+      // Show success message
       toast.success('✅ Comment successfully added!', {
         position: 'top-right',
         autoClose: 3000,
@@ -129,8 +141,9 @@ const CommentForm = () => {
         draggable: true,
         theme: 'dark',
       });
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   return (
@@ -163,6 +176,7 @@ const CommentForm = () => {
           onChange={(e) => setComment(e.target.value)}
           className="w-full p-3 rounded bg-gray-800 text-white border border-gray-600 outline-none resize-none focus:ring-2 focus:ring-blue-500 transition-all"
           whileFocus={{ scale: 1.02 }}
+          rows={4}
         />
 
         {/* Submit Button */}

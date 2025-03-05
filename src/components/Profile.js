@@ -2,7 +2,6 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
 import Typed from 'typed.js';
-import { Calendar } from 'lucide-react';
 
 const Profile = () => {
   const textRef = useRef(null);
@@ -54,7 +53,7 @@ const Profile = () => {
   };
 
   return (
-    <div className="flex flex-col items-center gap-4 p-6 bg-gray-900 rounded-lg shadow-lg">
+    <div className="flex flex-col items-center gap-4 p-6 bg-gray-900">
       {/* Username with Animation */}
       <motion.h1
         initial={{ opacity: 0, y: 10 }}
@@ -106,7 +105,6 @@ const Profile = () => {
       <div className="w-full max-w-md">
         <div className="flex flex-col items-center">
           <div className="flex items-center gap-2 px-4 py-2 border border-gray-700 rounded-lg bg-gray-800 text-gray-300 shadow-md">
-            <Calendar size={20} />
             <span>{currentDateTime}</span>
           </div>
         </div>

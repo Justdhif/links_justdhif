@@ -53,7 +53,7 @@ const Profile = () => {
   };
 
   return (
-    <div className="flex flex-col items-center gap-4 p-6 bg-gray-900">
+    <div className="flex flex-col items-center gap-4 p-6">
       {/* Username with Animation */}
       <motion.h1
         initial={{ opacity: 0, y: 10 }}

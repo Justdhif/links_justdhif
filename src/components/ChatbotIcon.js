@@ -3,10 +3,11 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useEffect, useState } from 'react';
 
 const ChatbotIcon = () => {
-  const [randomMessage, setRandomMessage] = useState('');
+  const [currentMessage, setCurrentMessage] = useState('');
   const [key, setKey] = useState(0);
+  const [showMessage, setShowMessage] = useState(false); // State untuk menampilkan pesan
 
-  // Daftar pesan acak
+  // Daftar pesan sesuai urutan
   const messages = [
     'Hello! 👋',
     'Need help?',
@@ -15,20 +16,28 @@ const ChatbotIcon = () => {
     'Let’s chat!',
   ];
 
-  // Fungsi untuk memilih pesan acak
-  const getRandomMessage = () => {
-    const randomIndex = Math.floor(Math.random() * messages.length);
-    return messages[randomIndex];
+  // Fungsi untuk mengubah pesan sesuai urutan
+  const getNextMessage = (index) => {
+    return messages[index % messages.length];
   };
 
-  // Set pesan acak setiap 3 detik
+  // Set pesan sesuai urutan setiap 3 detik
   useEffect(() => {
-    const interval = setInterval(() => {
-      setRandomMessage(getRandomMessage());
-      setKey((prevKey) => prevKey + 1); // Update key untuk trigger animasi
+    // Tunda munculnya pesan pertama kali selama 3 detik
+    const initialDelay = setTimeout(() => {
+      setShowMessage(true);
     }, 3000);
-    return () => clearInterval(interval);
-  }, []);
+
+    const interval = setInterval(() => {
+      setCurrentMessage(getNextMessage(key));
+      setKey((prevKey) => prevKey + 1); // Update key untuk trigger animasi dan urutan pesan
+    }, 3000);
+
+    return () => {
+      clearTimeout(initialDelay);
+      clearInterval(interval);
+    };
+  }, [key]);
 
   return (
     <motion.div
@@ -38,18 +47,20 @@ const ChatbotIcon = () => {
     >
       <Link href="/chatbot">
         <div className="relative flex justify-center items-center">
-          {/* Pesan Acak dengan Animasi Pergantian */}
+          {/* Pesan dengan Animasi Pergantian */}
           <AnimatePresence mode="wait">
-            <motion.div
-              key={key} // Kunci unik untuk setiap perubahan teks
-              initial={{ opacity: 0, y: 10, scale: 0.9 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -10, scale: 0.9 }}
-              transition={{ duration: 0.4, ease: 'easeOut' }}
-              className="absolute -top-11 bg-gray-800 text-white text-xs sm:text-sm px-3 py-2 rounded-lg shadow-lg whitespace-nowrap overflow-hidden"
-            >
-              {randomMessage}
-            </motion.div>
+            {showMessage && ( // Hanya tampilkan pesan jika `showMessage` true
+              <motion.div
+                key={key} // Kunci unik untuk setiap perubahan teks
+                initial={{ opacity: 0, y: 10, scale: 0.9 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -10, scale: 0.9 }}
+                transition={{ duration: 0.4, ease: 'easeOut' }}
+                className="absolute -top-11 bg-gray-800 text-white text-xs sm:text-sm px-3 py-2 rounded-lg shadow-lg whitespace-nowrap overflow-hidden"
+              >
+                {currentMessage}
+              </motion.div>
+            )}
           </AnimatePresence>
 
           {/* Ikon Robot */}

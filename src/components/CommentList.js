@@ -29,7 +29,7 @@ const CommentList = () => {
   }, []);
 
   return (
-    <div className="relative max-h-80 overflow-y-auto pr-2 custom_scrollbar">
+    <div className="relative max-h-80 overflow-y-auto">
       {loading ? (
         <motion.p
           initial={{ opacity: 0 }}
@@ -53,20 +53,6 @@ const CommentList = () => {
           ))}
         </AnimatePresence>
       )}
-
-      {/* Custom Scrollbar */}
-      <style jsx>{`
-        div::-webkit-scrollbar {
-          width: 6px;
-        }
-        div::-webkit-scrollbar-thumb {
-          background: rgba(0, 122, 255, 0.6);
-          border-radius: 10px;
-        }
-        div::-webkit-scrollbar-track {
-          background: transparent;
-        }
-      `}</style>
     </div>
   );
 };

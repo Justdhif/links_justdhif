@@ -10,7 +10,6 @@ import ProjectList from '../components/ProjectList';
 import ContactIcons from '../components/ContactIcons';
 import CommentList from '../components/CommentList';
 import CommentForm from '../components/CommentForm';
-import RandomWords from '../components/RandomWords';
 import TestimonialList from '../components/TestimonialList';
 import Location from '../components/Location';
 import ChatbotIcon from '../components/ChatbotIcon';
@@ -72,11 +71,6 @@ export default function Home() {
         {/* Testimonials Section */}
         <motion.div {...useScrollAnimation()}>
           <TestimonialList />
-        </motion.div>
-
-        {/* Random Words Section */}
-        <motion.div {...useScrollAnimation()}>
-          <RandomWords />
         </motion.div>
 
         {/* Location Section */}

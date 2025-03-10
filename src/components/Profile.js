@@ -92,13 +92,7 @@ const Profile = () => {
         transition={{ duration: 0.5, delay: 0.4 }}
         className="text-sm text-center text-gray-300 hover:text-gray-200 transition-colors duration-300"
       >
-        So, is this love{' '}
-        <a
-          href="https://www.instagram.com/fairzchls?igsh=MTJ5dXJtNTdodWp2"
-          className="text-cyan-400 hover:text-cyan-300"
-        >
-          cha?
-        </a>
+        So, is this love
       </motion.p>
 
       {/* Calendar Display */}
